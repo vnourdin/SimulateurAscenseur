@@ -1,74 +1,76 @@
 public class Immeuble extends Constantes {
 
     private final int nbEtages = 8;
-    
+
     private Etage etageLePlusHaut;
 
     private Etage niveauDuSol; // le niveau 0.
-    
+
     private Etage etageLePlusBas;
 
     public Cabine cabine; // de l'ascenseur.
-    
+
     public long cumulDesTempsDeTransport = 0;
-    
+
     public long nombreTotalDesPassagersSortis = 0;
-    
+
     public Etage etageLePlusBas() {
-	Etage res = etageLePlusBas;
+        Etage res = etageLePlusBas;
         assert res.numero() < etageLePlusHaut.numero();
-        return res ;
+        return res;
     }
 
     public Etage etageLePlusHaut() {
-	Etage res = etageLePlusHaut;
+        Etage res = etageLePlusHaut;
         assert res.numero() > etageLePlusBas.numero();
         return res;
     }
 
     public Etage niveauDuSol() {
-	Etage res = niveauDuSol;
-	assert etageLePlusHaut.numero() >= res.numero();
-	assert etageLePlusBas.numero() <= res.numero();
-	return res;
+        Etage res = niveauDuSol;
+        assert etageLePlusHaut.numero() >= res.numero();
+        assert etageLePlusBas.numero() <= res.numero();
+        return res;
     }
 
     public Immeuble(Echeancier echeancier) {
-	Etage e = null;
-	int c = 0;
-	final int freqsol = 41;
-	final int freqnor = freqsol * (nbEtages - 1);
+        Etage e = null;
+        int c = 0;
+        final int freqsol = 41;
+        final int freqnor = freqsol * (nbEtages - 1);
         int n = -2;
-	etageLePlusBas = new Etage(null, n++, freqnor);
-	c++;
-	Etage p = etageLePlusBas;
-	while (c < nbEtages) {
-	    if ( n == 0 ) {
-		e = new Etage(p, n++, freqsol);
-		niveauDuSol = e;
-	    } else {
-		e = new Etage(p, n++, freqnor);
-	    };
-	    c++;
-	    p = e;
+        etageLePlusBas = new Etage(null, n++, freqnor);
+        c++;
+        Etage p = etageLePlusBas;
+        while (c < nbEtages) {
+            if (n == 0) {
+                e = new Etage(p, n++, freqsol);
+                niveauDuSol = e;
+            } else {
+                e = new Etage(p, n++, freqnor);
+            }
+            ;
+            c++;
+            p = e;
         }
-	etageLePlusHaut = e;
-	p = etageLePlusHaut;
-	e = p.plus_bas;
-	while ( e != null ) {
-	    e.plus_haut = p;
-	    p = e;
-	    e = p.plus_bas;
-	};
-	e = etageLePlusBas;
-	while ( e != null ) {
+        etageLePlusHaut = e;
+        p = etageLePlusHaut;
+        e = p.plus_bas;
+        while (e != null) {
+            e.plus_haut = p;
+            p = e;
+            e = p.plus_bas;
+        }
+        ;
+        e = etageLePlusBas;
+        while (e != null) {
             long date = e.arriveeSuivante();
             echeancier.ajouter(new EvenementArriveePassagerPalier(date, e));
-	    e = e.plus_haut;
+            e = e.plus_haut;
         }
-	e = niveauDuSol.plus_haut.plus_haut;
+        e = niveauDuSol.plus_haut.plus_haut;
         cabine = new Cabine(e);
-	echeancier.ajouter(new EvenementPassageCabinePalier(tempsPourBougerLaCabineDUnEtage*2, e.plus_bas));
+        echeancier.ajouter(new EvenementPassageCabinePalier(tempsPourBougerLaCabineDUnEtage * 2, e.plus_bas));
     }
 
     public void afficheLaSituation() {
@@ -92,13 +94,13 @@ public class Immeuble extends Constantes {
     }
 
     public Etage etage(int i) {
-	assert etageLePlusBas().numero() <= i : "ERREUR trop haut";
+        assert etageLePlusBas().numero() <= i : "ERREUR trop haut";
         assert etageLePlusHaut().numero() >= i : "ERREUR trop bas";
-	Etage res = etageLePlusBas;
-	while ( i != res.numero() ) {
-	    assert res.numero() + 1 == res.plus_haut.numero();
-	    res = res.plus_haut;
-	}
+        Etage res = etageLePlusBas;
+        while (i != res.numero()) {
+            assert res.numero() + 1 == res.plus_haut.numero();
+            res = res.plus_haut;
+        }
         assert res.numero() == i;
         return res;
     }

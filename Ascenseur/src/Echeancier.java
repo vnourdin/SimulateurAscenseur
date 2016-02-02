@@ -2,18 +2,18 @@ import java.util.LinkedList;
 
 public class Echeancier extends Constantes {
     // La liste triée chronologiquement des événements du simulateur.
-    
+
     private LinkedList<Evenement> listeEvenements; // Changement de type autorisé.
     // La liste triée des événements.
-    
+
     public Echeancier() {
         listeEvenements = new LinkedList<Evenement>();
     }
-    
+
     public boolean estVide() {
         return listeEvenements.isEmpty();
     }
-    
+
     public void ajouter(Evenement e) {
         int pos = 0;
         while (pos < listeEvenements.size()) {
@@ -26,13 +26,13 @@ public class Echeancier extends Constantes {
         }
         listeEvenements.add(pos, e);
     }
-    
+
     public Evenement retourneEtEnlevePremier() {
         Evenement e = listeEvenements.getFirst();
         listeEvenements.removeFirst();
         return e;
     }
-    
+
     public void afficheLaSituation(Immeuble ascenseur) {
         System.out.print("Echeancier = ");
         int index = 0;
@@ -45,5 +45,5 @@ public class Echeancier extends Constantes {
         }
         System.out.println("");
     }
-	
+
 }

@@ -46,14 +46,14 @@ public class PressRandomNumberGenerator {
 
     public double doubleSuivant() {
     /*
-	  Donne le double aléatoire suivant.
+      Donne le double aléatoire suivant.
 	*/
         next();
         return ((double) iy) / 2147483647;
     }
 
     public int intSuivant(int maxi) {
-	/*
+    /*
 	  Donne le int aléatoire suivant dans l'intervalle [1 .. maxi].
 	*/
         next();
