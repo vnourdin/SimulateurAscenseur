@@ -39,7 +39,18 @@ public class Cabine extends Constantes {
         status = s;
     }
 
+    private boolean estVide() {
+        for (int i = 0; i < nombreDePlacesDansLaCabine; i++) {
+            if (this.tableauPassager[i] != null)
+                return false;
+        }
+        return true;
+    }
+
     public Passager[] passagersQuiDescendentACetEtage() {
+
+        if (this.estVide()) return new Passager[0];
+
         Passager[] tmp = new Passager[nombreDePlacesDansLaCabine];
         int i = 0;
         for (Passager p : this.tableauPassager) {
@@ -48,9 +59,11 @@ public class Cabine extends Constantes {
                 i++;
             }
         }
+
         Passager[] passagersQuidescendent = new Passager[i];
         for (int j = 0; j < i; j++)
             passagersQuidescendent[j] = tmp[j];
+
         return passagersQuidescendent;
     }
 }
