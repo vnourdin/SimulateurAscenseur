@@ -39,7 +39,18 @@ public class Cabine extends Constantes {
         status = s;
     }
 
-    public Passager[] getTableauPassager() {
-        return tableauPassager;
+    public Passager[] passagersQuiDescendentACetEtage() {
+        Passager[] tmp = new Passager[nombreDePlacesDansLaCabine];
+        int i = 0;
+        for (Passager p : this.tableauPassager) {
+            if (p.etageDestination() == this.etage) {
+                tmp[i] = p;
+                i++;
+            }
+        }
+        Passager[] passagersQuidescendent = new Passager[i];
+        for (int j = 0; j < i; j++)
+            passagersQuidescendent[j] = tmp[j];
+        return passagersQuidescendent;
     }
 }
