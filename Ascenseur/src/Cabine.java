@@ -39,4 +39,7 @@ public class Cabine extends Constantes {
         status = s;
     }
 
+    public Passager[] getTableauPassager() {
+        return tableauPassager;
+    }
 }
