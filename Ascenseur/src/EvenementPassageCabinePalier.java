@@ -15,8 +15,8 @@ public class EvenementPassageCabinePalier extends Evenement {
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         Cabine cabine = immeuble.cabine;
+        cabine.etage = this.etage;
         assert !cabine.porteOuverte;
-        immeuble.etage(this.etage.numero());
         boolean ouvertureNecessaire = false;
         if (cabine.passagersQuiDescendentACetEtage().length != 0)
             ouvertureNecessaire = true;
@@ -25,7 +25,11 @@ public class EvenementPassageCabinePalier extends Evenement {
 
         if (ouvertureNecessaire)
             notYetImplemented();
-        else
-            notYetImplemented();
+        else {
+            if (cabine.status() == 'v')
+                echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_bas));
+            if (cabine.status() == '^')
+                echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_haut));
+        }
     }
 }
