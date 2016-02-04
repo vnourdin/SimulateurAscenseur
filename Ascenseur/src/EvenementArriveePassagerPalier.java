@@ -16,5 +16,6 @@ public class EvenementArriveePassagerPalier extends Evenement {
         assert etageDeDepart != null;
         Passager p = new Passager(date, etageDeDepart, immeuble);
         this.etageDeDepart.ajouter(p);
+        echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
     }
 }
