@@ -26,6 +26,11 @@ public class EvenementPassageCabinePalier extends Evenement {
         if (ouvertureNecessaire)
             notYetImplemented();
         else {
+            if (etage == immeuble.etageLePlusBas())
+                cabine.changerStatus('^');
+            if (etage == immeuble.etageLePlusHaut())
+                cabine.changerStatus('v');
+
             if (cabine.status() == 'v')
                 echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_bas));
             if (cabine.status() == '^')
