@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Etage extends Constantes {
 
@@ -73,4 +72,8 @@ public class Etage extends Constantes {
         return poissonFrequenceArrivee.suivant();
     }
 
+    public boolean passagersInteresses(char status) {
+        notYetImplemented();
+        return false;
+    }
 }

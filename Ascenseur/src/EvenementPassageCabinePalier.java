@@ -17,9 +17,11 @@ public class EvenementPassageCabinePalier extends Evenement {
         Cabine cabine = immeuble.cabine;
         assert !cabine.porteOuverte;
         immeuble.etage(this.etage.numero());
-        if (cabine.passagersQuiDescendentACetEtage().length != 0) {
-            notYetImplemented();
-        }
+        boolean ouvertureNecessaire = false;
+        if (cabine.passagersQuiDescendentACetEtage().length != 0)
+            ouvertureNecessaire = true;
+        if (etage.passagersInteresses(cabine.status()))
+            ouvertureNecessaire = true;
         notYetImplemented();
     }
 }
