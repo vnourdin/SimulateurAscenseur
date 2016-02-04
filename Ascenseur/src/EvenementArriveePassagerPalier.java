@@ -15,6 +15,6 @@ public class EvenementArriveePassagerPalier extends Evenement {
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         assert etageDeDepart != null;
         Passager p = new Passager(date, etageDeDepart, immeuble);
-        notYetImplemented();
+        this.etageDeDepart.ajouter(p);
     }
 }
