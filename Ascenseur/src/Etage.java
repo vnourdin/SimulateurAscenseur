@@ -73,7 +73,21 @@ public class Etage extends Constantes {
     }
 
     public boolean passagersInteresses(char status) {
-        notYetImplemented();
-        return false;
+        boolean auMoinsUnInteresse = false;
+        switch (status) {
+            case 'v':
+                for (Passager passager : this.listePassagersEtage) {
+                    if (passager.etageDestination().numero() < this.numero())
+                        auMoinsUnInteresse = true;
+                }
+                break;
+            case '^':
+                for (Passager passager : this.listePassagersEtage) {
+                    if (passager.etageDestination().numero() > this.numero())
+                        auMoinsUnInteresse = true;
+                }
+                break;
+        }
+        return auMoinsUnInteresse;
     }
 }

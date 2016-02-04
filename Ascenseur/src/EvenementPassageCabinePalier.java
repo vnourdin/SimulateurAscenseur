@@ -22,6 +22,10 @@ public class EvenementPassageCabinePalier extends Evenement {
             ouvertureNecessaire = true;
         if (etage.passagersInteresses(cabine.status()))
             ouvertureNecessaire = true;
-        notYetImplemented();
+
+        if (ouvertureNecessaire)
+            notYetImplemented();
+        else
+            notYetImplemented();
     }
 }
