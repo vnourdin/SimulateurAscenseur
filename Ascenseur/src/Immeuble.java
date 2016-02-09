@@ -88,8 +88,8 @@ public class Immeuble extends Constantes {
         }
         cabine.afficheLaSituation();
         System.out.println("Cumul des temps de transport: " + cumulDesTempsDeTransport);
-        System.out.println("Nombre total des passagers sortis: " + nombreTotalDesPassagersSortis);
-        System.out.println("Ratio cumul temps / nb passagers : " +
+        System.out.println("Nombre total des auMoinsUnPassagers sortis: " + nombreTotalDesPassagersSortis);
+        System.out.println("Ratio cumul temps / nb auMoinsUnPassagers : " +
                 (nombreTotalDesPassagersSortis == 0 ? 0 : (cumulDesTempsDeTransport / nombreTotalDesPassagersSortis)));
     }
 
