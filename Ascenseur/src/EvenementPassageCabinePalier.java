@@ -18,7 +18,7 @@ public class EvenementPassageCabinePalier extends Evenement {
         cabine.etage = this.etage;
         assert !cabine.porteOuverte;
         boolean ouvertureNecessaire = false;
-        if (!cabine.aUneDestination() && etage.passagers())
+        if (!cabine.aUneDestination() && etage.auMoinsUnPassagers())
             ouvertureNecessaire = true;
         if (cabine.passagersQuiDescendentACetEtage().length != 0)
             ouvertureNecessaire = true;
@@ -26,7 +26,8 @@ public class EvenementPassageCabinePalier extends Evenement {
             ouvertureNecessaire = false;
 
         if (ouvertureNecessaire)
-            notYetImplemented();
+            echeancier.ajouter(new EvenementOuverturePorteCabine(this.date + Constantes.tempsPourOuvrirLesPortes));
+
         else {
             if (etage == immeuble.etageLePlusBas())
                 cabine.changerStatus('^');

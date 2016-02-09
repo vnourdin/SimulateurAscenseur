@@ -1,3 +1,5 @@
+import java.nio.channels.NotYetBoundException;
+
 public class EvenementOuverturePorteCabine extends Evenement {
 
     public EvenementOuverturePorteCabine(long d) {
@@ -12,10 +14,13 @@ public class EvenementOuverturePorteCabine extends Evenement {
         Cabine cabine = immeuble.cabine;
         Etage etage = cabine.etage;
         assert !cabine.porteOuverte;
-        notYetImplemented();
-        // ...
-        // ...
+
+        cabine.porteOuverte = true;
+        echeancier.ajouter(new EvenementFermeturePorteCabine(this.date + Constantes.tempsPourFermerLesPortes));
+
         assert cabine.porteOuverte;
+
+        notYetImplemented();
     }
 
 }
