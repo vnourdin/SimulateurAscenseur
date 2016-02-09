@@ -90,4 +90,8 @@ public class Etage extends Constantes {
         }
         return auMoinsUnInteresse;
     }
+
+    public boolean passagers() {
+        return (this.listePassagersEtage.size()!=0);
+    }
 }
