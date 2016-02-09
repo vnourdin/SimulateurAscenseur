@@ -23,7 +23,7 @@ public class EvenementPassageCabinePalier extends Evenement {
         if (cabine.passagersQuiDescendentACetEtage().length != 0)
             ouvertureNecessaire = true;
         if (etage.passagersInteresses(cabine.status()))
-            ouvertureNecessaire = true;
+            ouvertureNecessaire = false;
 
         if (ouvertureNecessaire)
             notYetImplemented();
