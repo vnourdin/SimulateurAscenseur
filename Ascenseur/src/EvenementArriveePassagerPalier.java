@@ -15,7 +15,12 @@ public class EvenementArriveePassagerPalier extends Evenement {
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         assert etageDeDepart != null;
         Passager p = new Passager(date, etageDeDepart, immeuble);
-        this.etageDeDepart.ajouter(p);
-        echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+
+        if (immeuble.cabine.etage == this.etageDeDepart && immeuble.cabine.porteOuverte)
+            notYetImplemented();
+        else {
+            this.etageDeDepart.ajouter(p);
+            echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+        }
     }
 }
