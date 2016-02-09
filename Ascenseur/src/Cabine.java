@@ -68,9 +68,7 @@ public class Cabine extends Constantes {
     }
 
     public boolean aUneDestination() {
-        if (this.estVide() && !qqunDansLaDirection())
-            return false;
-        return true;
+        return !(this.estVide() && !qqunDansLaDirection());
     }
 
     private boolean qqunDansLaDirection() {
@@ -92,7 +90,7 @@ public class Cabine extends Constantes {
     }
 
     public void faireDescendreCeuxQuiVeulent() {
-        for (int i=0; i<this.tableauPassager.length; i++) {
+        for (int i = 0; i < this.tableauPassager.length; i++) {
             if (this.tableauPassager[i] != null && this.tableauPassager[i].etageDestination() == this.etage) {
                 this.tableauPassager[i] = null;
             }
