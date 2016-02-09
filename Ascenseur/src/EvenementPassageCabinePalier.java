@@ -26,7 +26,7 @@ public class EvenementPassageCabinePalier extends Evenement {
             ouvertureNecessaire = true;
 
         if (ouvertureNecessaire)
-            notYetImplemented();
+            echeancier.ajouter(new EvenementOuverturePorteCabine(this.date + Constantes.tempsPourOuvrirLesPortes));
 
         else {
             if (etage == immeuble.etageLePlusBas())
