@@ -66,4 +66,28 @@ public class Cabine extends Constantes {
 
         return passagersQuidescendent;
     }
+
+    public boolean aUneDestination() {
+        if (this.estVide() && !qqunDansLaDirection())
+            return false;
+        return true;
+    }
+
+    private boolean qqunDansLaDirection() {
+        assert (this.status != '-');
+
+        Etage etg;
+        if (this.status == 'v') etg = this.etage.plus_bas;
+        else etg = this.etage.plus_haut;
+
+        while (etg != null) {
+            if (etg.passagersInteresses('v') || etg.passagersInteresses('^'))
+                return true;
+
+            if (this.status == 'v') etg = etg.plus_bas;
+            else if (this.status == '^') etg = etg.plus_haut;
+        }
+
+        return false;
+    }
 }
