@@ -90,4 +90,12 @@ public class Cabine extends Constantes {
 
         return false;
     }
+
+    public void faireDescendreCeuxQuiVeulent() {
+        for (int i=0; i<this.tableauPassager.length; i++) {
+            if (this.tableauPassager[i] != null && this.tableauPassager[i].etageDestination() == this.etage) {
+                this.tableauPassager[i] = null;
+            }
+        }
+    }
 }
