@@ -94,4 +94,31 @@ public class Etage extends Constantes {
     public boolean auMoinsUnPassagers() {
         return (this.listePassagersEtage.size() != 0);
     }
+
+
+    public int ajouterPassagerInteresses(Cabine cabine) {
+        assert cabine.etage == this;
+        ArrayList<Passager> passagersASupprimer = new ArrayList<Passager>();
+        for (Passager passager : this.listePassagersEtage) {
+            if (cabine.status() == 'v' && passager.etageDestination().numero() < this.numero() && cabine.nbPlaceDispo() >= 1) {
+                cabine.ajouterPassager(passager);
+                passagersASupprimer.add(passager);
+            } else if (cabine.status() == '^' && passager.etageDestination().numero() > this.numero() && cabine.nbPlaceDispo() >= 1) {
+                cabine.ajouterPassager(passager);
+                passagersASupprimer.add(passager);
+            }
+        }
+        this.supprimerPassagers(passagersASupprimer);
+        return passagersASupprimer.size();
+    }
+
+    private void supprimerPassagers(ArrayList<Passager> passagersASupprimer) {
+        for (int j = 0; j < passagersASupprimer.size(); j++) {
+            for (int i = 0; i < this.listePassagersEtage.size(); i++) {
+                if (this.listePassagersEtage.get(i) == passagersASupprimer.get(j)) {
+                    this.listePassagersEtage.remove(i);
+                }
+            }
+        }
+    }
 }

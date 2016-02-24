@@ -14,16 +14,23 @@ public class EvenementOuverturePorteCabine extends Evenement {
         assert !cabine.porteOuverte;
 
         cabine.porteOuverte = true;
-        echeancier.ajouter(new EvenementFermeturePorteCabine(this.date + Constantes.tempsPourFermerLesPortes));
 
         assert cabine.porteOuverte;
 
 
-        cabine.faireDescendreCeuxQuiVeulent();
-        if (etage.passagersInteresses(cabine.status()))
-            notYetImplemented();
+        int nbPersonnesDescendues = cabine.faireDescendreCeuxQuiVeulent();
+        int nbPersonnesMontees = cabine.faireMonterCeuxQuiVeulent();
+        if (!cabine.aUneDestination() && etage.auMoinsUnPassagers()) {
+            if (cabine.status() == '^') {
+                cabine.changerStatus('v');
+            } else {
+                cabine.changerStatus('^');
+            }
+            nbPersonnesMontees += cabine.faireMonterCeuxQuiVeulent();
+        }
 
-        notYetImplemented();
+        echeancier.ajouter(new EvenementFermeturePorteCabine(this.date + Constantes.tempsPourFermerLesPortes + Constantes.tempsPourSortirDeLaCabine * nbPersonnesDescendues + Constantes.tempsPourEntrerDansLaCabine * nbPersonnesMontees));
+
     }
 
 }

@@ -54,7 +54,7 @@ public class Cabine extends Constantes {
         Passager[] tmp = new Passager[nombreDePlacesDansLaCabine];
         int i = 0;
         for (Passager p : this.tableauPassager) {
-            if (p.etageDestination() == this.etage) {
+            if (p != null && p.etageDestination() == this.etage) {
                 tmp[i] = p;
                 i++;
             }
@@ -89,11 +89,45 @@ public class Cabine extends Constantes {
         return false;
     }
 
-    public void faireDescendreCeuxQuiVeulent() {
+    public int nbPlaceDispo() {
+        int tmp = 0;
+        for (int i = 0; i < this.tableauPassager.length; i++) {
+            if (this.tableauPassager[i] == null) {
+                tmp++;
+            }
+        }
+        return tmp;
+    }
+
+    public void ajouterPassager(Passager passager) {
+        assert this.nbPlaceDispo() >= 1;
+        int i = 0;
+        boolean arret = false;
+        while (i < this.tableauPassager.length && arret == false) {
+            if (this.tableauPassager[i] == null) {
+                this.tableauPassager[i] = passager;
+                arret = true;
+            }
+            i++;
+
+        }
+        assert this.tableauPassager[i] == passager;
+
+    }
+
+    public int faireDescendreCeuxQuiVeulent() {
+        int nbPDescendus = 0;
         for (int i = 0; i < this.tableauPassager.length; i++) {
             if (this.tableauPassager[i] != null && this.tableauPassager[i].etageDestination() == this.etage) {
                 this.tableauPassager[i] = null;
+                nbPDescendus++;
             }
         }
+
+        return nbPDescendus;
+    }
+
+    public int faireMonterCeuxQuiVeulent() {
+        return etage.ajouterPassagerInteresses(this);
     }
 }

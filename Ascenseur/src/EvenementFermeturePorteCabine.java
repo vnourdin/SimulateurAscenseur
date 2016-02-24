@@ -11,11 +11,18 @@ public class EvenementFermeturePorteCabine extends Evenement {
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         Cabine cabine = immeuble.cabine;
         assert cabine.porteOuverte;
-        notYetImplemented();
-        // ...
-        // ...
-        // ...
+        cabine.porteOuverte = false;
         assert !cabine.porteOuverte;
+
+        if (cabine.etage == immeuble.etageLePlusBas())
+            cabine.changerStatus('^');
+        else if (cabine.etage == immeuble.etageLePlusHaut())
+            cabine.changerStatus('v');
+
+        if (cabine.status() == 'v')
+            echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, cabine.etage.plus_bas));
+        else if (cabine.status() == '^')
+            echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, cabine.etage.plus_haut));
     }
 
 }
