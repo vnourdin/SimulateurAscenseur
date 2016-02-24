@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Etage extends Constantes {
+public class    Etage extends Constantes {
 
     private int numero; // de l'Etage pour l'usager
 

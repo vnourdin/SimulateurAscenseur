@@ -110,5 +110,4 @@ public class Immeuble extends Constantes {
         assert res == (etageLePlusHaut().numero() - etageLePlusBas().numero() + 1);
         return res;
     }
-
 }

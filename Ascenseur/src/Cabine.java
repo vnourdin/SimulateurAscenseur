@@ -68,22 +68,22 @@ public class Cabine extends Constantes {
     }
 
     public boolean aUneDestination() {
-        return !(this.estVide() && !qqunDansLaDirection());
+        return !(this.estVide() && !this.qqunDansLaDirection(this.status));
     }
 
-    private boolean qqunDansLaDirection() {
-        assert (this.status != '-');
+    public boolean qqunDansLaDirection(char direction) {
+        assert (direction != '-');
 
         Etage etg;
-        if (this.status == 'v') etg = this.etage.plus_bas;
-        else etg = this.etage.plus_haut;
+        if (direction == 'v') etg = this.etage.plus_bas;
+        else etg = etage.plus_haut;
 
         while (etg != null) {
             if (etg.passagersInteresses('v') || etg.passagersInteresses('^'))
                 return true;
 
-            if (this.status == 'v') etg = etg.plus_bas;
-            else if (this.status == '^') etg = etg.plus_haut;
+            if (direction == 'v') etg = etg.plus_bas;
+            else if (direction == '^') etg = etg.plus_haut;
         }
 
         return false;
