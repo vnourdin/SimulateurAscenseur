@@ -101,18 +101,18 @@ public class Cabine extends Constantes {
 
     public void ajouterPassager(Passager passager) {
         assert this.nbPlaceDispo() >= 1;
-        int i = 0;
+
         boolean arret = false;
-        while (i < this.tableauPassager.length && arret == false) {
+        int i;
+
+        for (i = 0; i < this.tableauPassager.length && !arret; i++) {
             if (this.tableauPassager[i] == null) {
                 this.tableauPassager[i] = passager;
                 arret = true;
             }
-            i++;
-
         }
-        assert this.tableauPassager[i] == passager;
 
+        assert this.tableauPassager[i - 1] == passager;
     }
 
     public int faireDescendreCeuxQuiVeulent() {
