@@ -18,8 +18,10 @@ public class EvenementOuverturePorteCabine extends Evenement {
         assert cabine.porteOuverte;
 
 
-        int nbPersonnesDescendues = cabine.faireDescendreCeuxQuiVeulent(immeuble);
+        int nbPersonnesDescendues = cabine.faireDescendreCeuxQuiVeulent(immeuble, this.date);
+
         int nbPersonnesMontees = cabine.faireMonterCeuxQuiVeulent();
+
         if (!cabine.aUneDestination() && etage.auMoinsUnPassagers()) {
             if (cabine.status() == '^') {
                 cabine.changerStatus('v');
