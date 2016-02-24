@@ -115,12 +115,13 @@ public class Cabine extends Constantes {
         assert this.tableauPassager[i - 1] == passager;
     }
 
-    public int faireDescendreCeuxQuiVeulent() {
+    public int faireDescendreCeuxQuiVeulent(Immeuble immeuble) {
         int nbPDescendus = 0;
         for (int i = 0; i < this.tableauPassager.length; i++) {
             if (this.tableauPassager[i] != null && this.tableauPassager[i].etageDestination() == this.etage) {
                 this.tableauPassager[i] = null;
                 nbPDescendus++;
+                immeuble.nombreTotalDesPassagersSortis++;
             }
         }
 
