@@ -35,15 +35,9 @@ public class EvenementPassageCabinePalier extends Evenement {
                 cabine.changerStatus('v');
 
             if (cabine.status() == 'v') {
-                if (!cabine.aUneDestination() && cabine.qqunDansLaDirection('^'))
-                    echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_haut));
-                else
-                    echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_bas));
+                echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_bas));
             } else if (cabine.status() == '^') {
-                if (!cabine.aUneDestination() && cabine.qqunDansLaDirection('v'))
-                    echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_bas));
-                else
-                    echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_haut));
+                echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, etage.plus_haut));
             }
         }
     }
