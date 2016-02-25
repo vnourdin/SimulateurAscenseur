@@ -88,30 +88,21 @@ public class Cabine extends Constantes {
         return false;
     }
 
-    public int nbPlaceDispo() {
-        int tmp = 0;
-        for (int i = 0; i < this.tableauPassager.length; i++) {
-            if (this.tableauPassager[i] == null) {
-                tmp++;
-            }
-        }
-        return tmp;
-    }
+    public boolean ajouterPassager(Passager passager) {
 
-    public void ajouterPassager(Passager passager) {
-        assert this.nbPlaceDispo() >= 1;
-
-        boolean arret = false;
+        boolean ajoute = false;
         int i;
 
-        for (i = 0; i < this.tableauPassager.length && !arret; i++) {
+        for (i = 0; i < this.tableauPassager.length && !ajoute; i++) {
             if (this.tableauPassager[i] == null) {
                 this.tableauPassager[i] = passager;
-                arret = true;
+                ajoute = true;
             }
         }
+        if (ajoute)
+            assert this.tableauPassager[i - 1] == passager;
 
-        assert this.tableauPassager[i - 1] == passager;
+        return ajoute;
     }
 
     public int faireDescendreCeuxQuiVeulent(Immeuble immeuble, long date) {
