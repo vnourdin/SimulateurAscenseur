@@ -54,7 +54,7 @@ public class PressRandomNumberGenerator {
 
     public int intSuivant(int maxi) {
     /*
-	  Donne le int aléatoire suivant dans l'intervalle [1 .. maxi].
+      Donne le int aléatoire suivant dans l'intervalle [1 .. maxi].
 	*/
         next();
         return (iy % maxi) + 1;

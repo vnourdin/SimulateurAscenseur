@@ -1,37 +1,12 @@
 public class Immeuble extends Constantes {
 
     private final int nbEtages = 8;
-
-    private Etage etageLePlusHaut;
-
-    private Etage niveauDuSol; // le niveau 0.
-
-    private Etage etageLePlusBas;
-
     public Cabine cabine; // de l'ascenseur.
-
     public long cumulDesTempsDeTransport = 0;
-
     public long nombreTotalDesPassagersSortis = 0;
-
-    public Etage etageLePlusBas() {
-        Etage res = etageLePlusBas;
-        assert res.numero() < etageLePlusHaut.numero();
-        return res;
-    }
-
-    public Etage etageLePlusHaut() {
-        Etage res = etageLePlusHaut;
-        assert res.numero() > etageLePlusBas.numero();
-        return res;
-    }
-
-    public Etage niveauDuSol() {
-        Etage res = niveauDuSol;
-        assert etageLePlusHaut.numero() >= res.numero();
-        assert etageLePlusBas.numero() <= res.numero();
-        return res;
-    }
+    private Etage etageLePlusHaut;
+    private Etage niveauDuSol; // le niveau 0.
+    private Etage etageLePlusBas;
 
     public Immeuble(Echeancier echeancier) {
         Etage e = null;
@@ -71,6 +46,25 @@ public class Immeuble extends Constantes {
         e = niveauDuSol.plus_haut.plus_haut;
         cabine = new Cabine(e);
         echeancier.ajouter(new EvenementPassageCabinePalier(tempsPourBougerLaCabineDUnEtage * 2, e.plus_bas));
+    }
+
+    public Etage etageLePlusBas() {
+        Etage res = etageLePlusBas;
+        assert res.numero() < etageLePlusHaut.numero();
+        return res;
+    }
+
+    public Etage etageLePlusHaut() {
+        Etage res = etageLePlusHaut;
+        assert res.numero() > etageLePlusBas.numero();
+        return res;
+    }
+
+    public Etage niveauDuSol() {
+        Etage res = niveauDuSol;
+        assert etageLePlusHaut.numero() >= res.numero();
+        assert etageLePlusBas.numero() <= res.numero();
+        return res;
     }
 
     public void afficheLaSituation() {

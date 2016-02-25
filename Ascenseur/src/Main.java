@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 public class Main { // Programme de simulation d'un ascensseur
 
     private static boolean assert_flag = false;
+    private static long memoDate = -1;
 
     public static void main(String args[]) {
 
@@ -59,8 +60,6 @@ public class Main { // Programme de simulation d'un ascensseur
         }
         System.out.println("********** SIMULATION TERMINEE **********");
     }
-
-    private static long memoDate = -1;
 
     private static boolean pasDeRetourDansLeFutur(long nouvelleDate) {
         if (nouvelleDate >= memoDate) {

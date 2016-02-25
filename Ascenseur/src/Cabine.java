@@ -85,7 +85,6 @@ public class Cabine extends Constantes {
             if (direction == 'v') etg = etg.plus_bas;
             else if (direction == '^') etg = etg.plus_haut;
         }
-
         return false;
     }
 
@@ -131,5 +130,20 @@ public class Cabine extends Constantes {
 
     public int faireMonterCeuxQuiVeulent() {
         return etage.ajouterPassagerInteresses(this);
+    }
+
+    public boolean vaOuvrirLesPortesA(Etage etage) {
+        for (Passager p : this.tableauPassager) {
+            if (p != null && p.etageDestination().numero() == etage.numero())
+                return true;
+        }
+        return false;
+    }
+
+    public char statusContraire() {
+        if (this.status == 'v')
+            return '^';
+        else
+            return 'v';
     }
 }

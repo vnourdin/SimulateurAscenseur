@@ -2,12 +2,9 @@ import java.util.ArrayList;
 
 public class Etage extends Constantes {
 
-    private int numero; // de l'Etage pour l'usager
-
     public Etage plus_haut; // ou null sinon
-
     public Etage plus_bas; // ou null sinon
-
+    private int numero; // de l'Etage pour l'usager
     private LoiDePoisson poissonFrequenceArrivee; // dans l'Etage
 
     private ArrayList<Passager> listePassagersEtage = new ArrayList<Passager>();

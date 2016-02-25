@@ -1,32 +1,11 @@
 public class Passager {
 
+    private static final PressRandomNumberGenerator randomGenerator = new PressRandomNumberGenerator(34);
+    private static int compteurGlobalDeCreationDesPassagers = 0;
     private long numeroDeCreation;
-
     private long dateDepart;
-
     private Etage etageDepart;
-
     private Etage etageDestination;
-
-    public long dateDepart() {
-        return this.dateDepart;
-    }
-
-    public Etage etageDepart() {
-        return this.etageDepart;
-    }
-
-    public int numeroDepart() {
-        return this.etageDepart.numero();
-    }
-
-    public Etage etageDestination() {
-        return this.etageDestination;
-    }
-
-    public int numeroDestination() {
-        return this.etageDestination.numero();
-    }
 
     public Passager(long dateDeDepart, Etage etadep, Immeuble immeuble) {
         Etage niveauDuSol = immeuble.niveauDuSol();
@@ -47,9 +26,25 @@ public class Passager {
         }
     }
 
-    private static int compteurGlobalDeCreationDesPassagers = 0;
+    public long dateDepart() {
+        return this.dateDepart;
+    }
 
-    private static final PressRandomNumberGenerator randomGenerator = new PressRandomNumberGenerator(34);
+    public Etage etageDepart() {
+        return this.etageDepart;
+    }
+
+    public int numeroDepart() {
+        return this.etageDepart.numero();
+    }
+
+    public Etage etageDestination() {
+        return this.etageDestination;
+    }
+
+    public int numeroDestination() {
+        return this.etageDestination.numero();
+    }
 
     public char sens() {
         return (etageDestination.numero() > etageDepart.numero() ? '^' : 'v');
