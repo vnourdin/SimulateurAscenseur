@@ -27,10 +27,20 @@ public class Echeancier extends Constantes {
         listeEvenements.add(pos, e);
     }
 
-    public Evenement retourneEtEnlevePremier() {
+    public Evenement retournerEtEnleverPremier() {
         Evenement e = listeEvenements.getFirst();
         listeEvenements.removeFirst();
         return e;
+    }
+
+    public Evenement retournerEtEnleverFPC() {
+        for (Evenement event : this.listeEvenements) {
+            if (event.getClass() == EvenementFermeturePorteCabine.class) {
+                this.listeEvenements.remove(event);
+                return event;
+            }
+        }
+        return null;
     }
 
     public void afficheLaSituation(Immeuble ascenseur) {
@@ -45,5 +55,4 @@ public class Echeancier extends Constantes {
         }
         System.out.println("");
     }
-
 }

@@ -146,4 +146,14 @@ public class Cabine extends Constantes {
         else
             return 'v';
     }
+
+    public int nbPassagers() {
+        int tmp = 0;
+        for (int i = 0; i < this.tableauPassager.length; i++) {
+            if (this.tableauPassager[i] != null) {
+                tmp++;
+            }
+        }
+        return tmp;
+    }
 }

@@ -53,7 +53,7 @@ public class Main { // Programme de simulation d'un ascensseur
             } else {
                 loop--;
             }
-            Evenement evenement = echeancier.retourneEtEnlevePremier();
+            Evenement evenement = echeancier.retournerEtEnleverPremier();
             assert pasDeRetourDansLeFutur(evenement.date) : "Retour dans le passé:" + memoDate + "/" + evenement.date;
             evenement.traiter(immeuble, echeancier);
             simulationStepCounter++;
