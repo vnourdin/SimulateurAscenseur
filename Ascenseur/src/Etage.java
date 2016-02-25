@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class    Etage extends Constantes {
+public class Etage extends Constantes {
 
     private int numero; // de l'Etage pour l'usager
 
@@ -120,5 +120,9 @@ public class    Etage extends Constantes {
                 }
             }
         }
+    }
+
+    public char regarderDirectionPremierPassager() {
+        return this.listePassagersEtage.get(0).sens();
     }
 }

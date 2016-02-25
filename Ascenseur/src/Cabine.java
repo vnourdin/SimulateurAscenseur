@@ -68,7 +68,7 @@ public class Cabine extends Constantes {
     }
 
     public boolean aUneDestination() {
-        return !(this.estVide() && !this.qqunDansLaDirection(this.status));
+        return (!this.estVide() || this.qqunDansLaDirection(this.status));
     }
 
     public boolean qqunDansLaDirection(char direction) {

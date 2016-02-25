@@ -17,22 +17,10 @@ public class EvenementOuverturePorteCabine extends Evenement {
 
         assert cabine.porteOuverte;
 
-
         int nbPersonnesDescendues = cabine.faireDescendreCeuxQuiVeulent(immeuble, this.date);
 
         int nbPersonnesMontees = cabine.faireMonterCeuxQuiVeulent();
 
-        if (!cabine.aUneDestination() && etage.auMoinsUnPassagers()) {
-            if (cabine.status() == '^') {
-                cabine.changerStatus('v');
-            } else {
-                cabine.changerStatus('^');
-            }
-            nbPersonnesMontees += cabine.faireMonterCeuxQuiVeulent();
-        }
-
         echeancier.ajouter(new EvenementFermeturePorteCabine(this.date + Constantes.tempsPourFermerLesPortes + Constantes.tempsPourSortirDeLaCabine * nbPersonnesDescendues + Constantes.tempsPourEntrerDansLaCabine * nbPersonnesMontees));
-
     }
-
 }

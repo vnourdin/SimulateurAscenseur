@@ -18,12 +18,14 @@ public class EvenementPassageCabinePalier extends Evenement {
         cabine.etage = this.etage;
         assert !cabine.porteOuverte;
         boolean ouvertureNecessaire = false;
-        if (!cabine.aUneDestination() && etage.auMoinsUnPassagers())
-            ouvertureNecessaire = true;
         if (cabine.passagersQuiDescendentACetEtage().length != 0)
             ouvertureNecessaire = true;
         if (etage.passagersInteresses(cabine.status()))
             ouvertureNecessaire = true;
+        else if (!cabine.aUneDestination() && etage.auMoinsUnPassagers()) {
+            ouvertureNecessaire = true;
+            cabine.changerStatus(etage.regarderDirectionPremierPassager());
+        }
 
         if (ouvertureNecessaire)
             echeancier.ajouter(new EvenementOuverturePorteCabine(this.date + Constantes.tempsPourOuvrirLesPortes));
