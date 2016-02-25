@@ -17,7 +17,7 @@ public class EvenementArriveePassagerPalier extends Evenement {
         Passager p = new Passager(date, etageDeDepart, immeuble);
 
         if (immeuble.cabine.etage == this.etageDeDepart && immeuble.cabine.porteOuverte) {
-            immeuble.cabine.ajouterPassager(p);
+            immeuble.cabine.ajouterPassagerSiPossible(p);
             Evenement fpc = echeancier.retournerEtEnleverFPC();
             fpc.date += Constantes.tempsPourEntrerDansLaCabine;
             echeancier.ajouter(fpc);

@@ -1,11 +1,10 @@
+import java.util.ArrayList;
+
 public class Cabine extends Constantes {
 
-    public Etage etage; // actuel
-
+    public Etage etage;
     public boolean porteOuverte;
-
     private char status; // '-' ou 'v' ou '^'
-
     private Passager[] tableauPassager;
 
     public Cabine(Etage e) {
@@ -18,15 +17,13 @@ public class Cabine extends Constantes {
 
     public void afficheLaSituation() {
         System.out.print("Contenu de la cabine: ");
-        for (int i = tableauPassager.length - 1; i >= 0; i--) {
-            Passager p = tableauPassager[i];
+        for (Passager p : this.tableauPassager) {
             if (p != null) {
                 p.affiche();
                 System.out.print(' ');
             }
         }
-        assert (status == 'v') || (status == '^') || (status == '-');
-        System.out.println("\nStatus de la cabine: " + status);
+        System.out.println("\nStatus de la cabine: " + status());
     }
 
     public char status() {
@@ -39,56 +36,56 @@ public class Cabine extends Constantes {
         status = s;
     }
 
-    private boolean estVide() {
-        for (int i = 0; i < nombreDePlacesDansLaCabine; i++) {
-            if (this.tableauPassager[i] != null)
-                return false;
-        }
-        return true;
+    public char statusContraire() {
+        assert (status == 'v') || (status == '^') || (status == '-');
+        if (this.status == 'v')
+            return '^';
+        else
+            return 'v';
     }
 
     public Passager[] passagersQuiDescendentACetEtage() {
-
-        if (this.estVide()) return new Passager[0];
-
-        Passager[] tmp = new Passager[nombreDePlacesDansLaCabine];
-        int i = 0;
+        ArrayList<Passager> ceuxQuiDescendent = new ArrayList<>();
         for (Passager p : this.tableauPassager) {
-            if (p != null && p.etageDestination() == this.etage) {
-                tmp[i] = p;
-                i++;
+            if (p != null && p.etageDestination().numero() == this.etage.numero()) {
+                ceuxQuiDescendent.add(p);
             }
         }
 
-        Passager[] passagersQuidescendent = new Passager[i];
-        for (int j = 0; j < i; j++)
-            passagersQuidescendent[j] = tmp[j];
+        Passager[] ceuxQuiDescendent2 = new Passager[ceuxQuiDescendent.size()];
+        for (int i = 0; i < ceuxQuiDescendent.size(); i++) {
+            ceuxQuiDescendent2[i] = ceuxQuiDescendent.get(i);
+        }
 
-        return passagersQuidescendent;
+        return ceuxQuiDescendent2;
     }
 
     public boolean aUneDestination() {
         return (!this.estVide() || this.qqunDansLaDirection(this.status));
     }
 
-    public boolean qqunDansLaDirection(char direction) {
-        assert (direction != '-');
+    private boolean estVide() {
+        for (Passager p : this.tableauPassager) {
+            if (p != null)
+                return false;
+        }
+        return true;
+    }
 
-        Etage etg;
-        if (direction == 'v') etg = this.etage.plus_bas;
-        else etg = etage.plus_haut;
+    public boolean qqunDansLaDirection(char direction) {
+        assert (direction == 'v' || direction == '^');
+
+        Etage etg = (direction == 'v') ? this.etage.plus_bas : etage.plus_haut;
 
         while (etg != null) {
-            if (etg.passagersInteresses('v') || etg.passagersInteresses('^'))
+            if (etg.passagersInteresses('^') || etg.passagersInteresses('v'))
                 return true;
-
-            if (direction == 'v') etg = etg.plus_bas;
-            else if (direction == '^') etg = etg.plus_haut;
+            etg = (direction == 'v') ? etg.plus_bas : etg.plus_haut;
         }
         return false;
     }
 
-    public boolean ajouterPassager(Passager passager) {
+    public boolean ajouterPassagerSiPossible(Passager passager) {
 
         boolean ajoute = false;
         int i;
@@ -123,19 +120,19 @@ public class Cabine extends Constantes {
         return etage.ajouterPassagerInteresses(this);
     }
 
-    public boolean vaOuvrirLesPortesA(Etage etage) {
-        for (Passager p : this.tableauPassager) {
-            if (p != null && p.etageDestination().numero() == etage.numero())
-                return true;
-        }
-        return false;
-    }
+    public boolean vaSeVider(Etage etage) {
+        int nbPassagers = 0;
+        int nbPassagersQuiDescendent = 0;
 
-    public char statusContraire() {
-        if (this.status == 'v')
-            return '^';
-        else
-            return 'v';
+        for (Passager p : this.tableauPassager) {
+            if (p != null) {
+                nbPassagers++;
+                if (p.etageDestination().numero() == etage.numero())
+                    nbPassagersQuiDescendent++;
+            }
+        }
+
+        return (nbPassagers == nbPassagersQuiDescendent);
     }
 
     public int nbPassagers() {

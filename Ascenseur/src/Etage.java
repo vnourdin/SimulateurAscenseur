@@ -97,9 +97,9 @@ public class Etage extends Constantes {
         assert cabine.etage == this;
         ArrayList<Passager> passagersASupprimer = new ArrayList<Passager>();
         for (Passager passager : this.listePassagersEtage) {
-            if (cabine.status() == 'v' && passager.etageDestination().numero() < this.numero() && cabine.ajouterPassager(passager)) {
+            if (cabine.status() == 'v' && passager.etageDestination().numero() < this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
                 passagersASupprimer.add(passager);
-            } else if (cabine.status() == '^' && passager.etageDestination().numero() > this.numero() && cabine.ajouterPassager(passager)) {
+            } else if (cabine.status() == '^' && passager.etageDestination().numero() > this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
                 passagersASupprimer.add(passager);
             }
         }
