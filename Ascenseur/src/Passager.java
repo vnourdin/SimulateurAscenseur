@@ -16,14 +16,12 @@ public class Passager {
         compteurGlobalDeCreationDesPassagers++;
         numeroDeCreation = compteurGlobalDeCreationDesPassagers;
         if (etageDepart == niveauDuSol) {
-            etageDestination = niveauDuSol;
-            while (etageDestination == niveauDuSol) {
+            do {
                 int auPif = randomGenerator.intSuivant(nbEtages);
                 etageDestination = immeuble.etage(auPif + immeuble.etageLePlusBas().numero() - 1);
-            }
-        } else {
+            } while (etageDestination == niveauDuSol);
+        } else
             etageDestination = niveauDuSol;
-        }
     }
 
     public long dateDepart() {

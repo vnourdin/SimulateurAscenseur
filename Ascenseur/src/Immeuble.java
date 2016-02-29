@@ -12,32 +12,30 @@ public class Immeuble extends Constantes {
         Etage e = null;
         int c = 0;
         final int freqsol = 41;
-        final int freqnor = freqsol * (nbEtages - 1);
+        final int freqnor = freqsol * (this.nbEtages - 1);
         int n = -2;
-        etageLePlusBas = new Etage(null, n++, freqnor);
+        this.etageLePlusBas = new Etage(null, n++, freqnor);
         c++;
-        Etage p = etageLePlusBas;
-        while (c < nbEtages) {
+        Etage p = this.etageLePlusBas;
+        while (c < this.nbEtages) {
             if (n == 0) {
                 e = new Etage(p, n++, freqsol);
-                niveauDuSol = e;
+                this.niveauDuSol = e;
             } else {
                 e = new Etage(p, n++, freqnor);
             }
-            ;
             c++;
             p = e;
         }
-        etageLePlusHaut = e;
-        p = etageLePlusHaut;
+        this.etageLePlusHaut = e;
+        p = this.etageLePlusHaut;
         e = p.plus_bas;
         while (e != null) {
             e.plus_haut = p;
             p = e;
             e = p.plus_bas;
         }
-        ;
-        e = etageLePlusBas;
+        e = this.etageLePlusBas;
         while (e != null) {
             long date = e.arriveeSuivante();
             echeancier.ajouter(new EvenementArriveePassagerPalier(date, e));
@@ -49,22 +47,19 @@ public class Immeuble extends Constantes {
     }
 
     public Etage etageLePlusBas() {
-        Etage res = etageLePlusBas;
-        assert res.numero() < etageLePlusHaut.numero();
-        return res;
+        assert this.etageLePlusBas.numero() < this.etageLePlusHaut.numero();
+        return this.etageLePlusBas;
     }
 
     public Etage etageLePlusHaut() {
-        Etage res = etageLePlusHaut;
-        assert res.numero() > etageLePlusBas.numero();
-        return res;
+        assert this.etageLePlusHaut.numero() > this.etageLePlusBas.numero();
+        return this.etageLePlusHaut;
     }
 
     public Etage niveauDuSol() {
-        Etage res = niveauDuSol;
-        assert etageLePlusHaut.numero() >= res.numero();
-        assert etageLePlusBas.numero() <= res.numero();
-        return res;
+        assert this.niveauDuSol.numero() >= this.niveauDuSol.numero();
+        assert this.etageLePlusBas.numero() <= this.niveauDuSol.numero();
+        return this.niveauDuSol;
     }
 
     public void afficheLaSituation() {
@@ -75,12 +70,12 @@ public class Immeuble extends Constantes {
             System.out.print("infernal");
         }
         System.out.println("):");
-        Etage e = etageLePlusHaut;
+        Etage e = this.etageLePlusHaut;
         while (e != null) {
             e.afficheLaSituation(this);
             e = e.plus_bas;
         }
-        cabine.afficheLaSituation();
+        this.cabine.afficheLaSituation();
         System.out.println("Cumul des temps de transport: " + cumulDesTempsDeTransport);
         System.out.println("Nombre total des passagers sortis: " + nombreTotalDesPassagersSortis);
         System.out.println("Ratio cumul temps / nb passagers : " +
@@ -90,8 +85,8 @@ public class Immeuble extends Constantes {
     public Etage etage(int i) {
         assert etageLePlusBas().numero() <= i : "ERREUR trop haut";
         assert etageLePlusHaut().numero() >= i : "ERREUR trop bas";
-        Etage res = etageLePlusBas;
-        while (i != res.numero()) {
+        Etage res = this.etageLePlusBas;
+        while (res.numero() != i) {
             assert res.numero() + 1 == res.plus_haut.numero();
             res = res.plus_haut;
         }

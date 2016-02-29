@@ -10,12 +10,8 @@ public class EvenementOuverturePorteCabine extends Evenement {
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         Cabine cabine = immeuble.cabine;
-        Etage etage = cabine.etage;
         assert !cabine.porteOuverte;
-
         cabine.porteOuverte = true;
-
-        assert cabine.porteOuverte;
 
         int nbPersonnesDescendues = cabine.faireDescendreCeuxQuiVeulent(immeuble, this.date);
 

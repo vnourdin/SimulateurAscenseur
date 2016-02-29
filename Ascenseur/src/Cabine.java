@@ -23,17 +23,12 @@ public class Cabine extends Constantes {
                 System.out.print(' ');
             }
         }
-        System.out.println("\nStatus de la cabine: " + status());
+        System.out.println("\nStatus de la cabine: " + this.status());
     }
 
     public char status() {
         assert (status == 'v') || (status == '^') || (status == '-');
         return status;
-    }
-
-    public void changerStatus(char s) {
-        assert (s == 'v') || (s == '^') || (s == '-');
-        status = s;
     }
 
     public char statusContraire() {
@@ -42,6 +37,11 @@ public class Cabine extends Constantes {
             return '^';
         else
             return 'v';
+    }
+
+    public void changerStatus(char s) {
+        assert (s == 'v') || (s == '^') || (s == '-');
+        status = s;
     }
 
     public Passager[] passagersQuiDescendentACetEtage() {
@@ -75,10 +75,10 @@ public class Cabine extends Constantes {
     public boolean qqunDansLaDirection(char direction) {
         assert (direction == 'v' || direction == '^');
 
-        Etage etg = (direction == 'v') ? this.etage.plus_bas : etage.plus_haut;
+        Etage etg = (direction == 'v') ? this.etage.plus_bas : this.etage.plus_haut;
 
         while (etg != null) {
-            if (etg.passagersInteresses('^') || etg.passagersInteresses('v'))
+            if (etg.auMoinsUnPassagerInteresse('^') || etg.auMoinsUnPassagerInteresse('v'))
                 return true;
             etg = (direction == 'v') ? etg.plus_bas : etg.plus_haut;
         }
@@ -117,7 +117,7 @@ public class Cabine extends Constantes {
     }
 
     public int faireMonterCeuxQuiVeulent() {
-        return etage.ajouterPassagerInteresses(this);
+        return etage.ajouterTousLesPassagersInteresses(this);
     }
 
     public boolean vaSeVider(Etage etage) {
@@ -136,12 +136,12 @@ public class Cabine extends Constantes {
     }
 
     public int nbPassagers() {
-        int tmp = 0;
-        for (int i = 0; i < this.tableauPassager.length; i++) {
-            if (this.tableauPassager[i] != null) {
-                tmp++;
+        int nbPassagers = 0;
+        for (Passager passager : this.tableauPassager) {
+            if (passager != null) {
+                nbPassagers++;
             }
         }
-        return tmp;
+        return nbPassagers;
     }
 }

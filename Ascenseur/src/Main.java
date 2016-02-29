@@ -69,6 +69,4 @@ public class Main { // Programme de simulation d'un ascensseur
             return false;
         }
     }
-
-
 }

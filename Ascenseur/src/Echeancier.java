@@ -7,7 +7,7 @@ public class Echeancier extends Constantes {
     // La liste triée des événements.
 
     public Echeancier() {
-        listeEvenements = new LinkedList<Evenement>();
+        listeEvenements = new LinkedList<>();
     }
 
     public boolean estVide() {
@@ -28,8 +28,8 @@ public class Echeancier extends Constantes {
     }
 
     public Evenement retournerEtEnleverPremier() {
-        Evenement e = listeEvenements.getFirst();
-        listeEvenements.removeFirst();
+        Evenement e = this.listeEvenements.getFirst();
+        this.listeEvenements.removeFirst();
         return e;
     }
 
@@ -46,10 +46,10 @@ public class Echeancier extends Constantes {
     public void afficheLaSituation(Immeuble ascenseur) {
         System.out.print("Echeancier = ");
         int index = 0;
-        while (index < listeEvenements.size()) {
-            listeEvenements.get(index).affiche(ascenseur);
+        while (index < this.listeEvenements.size()) {
+            this.listeEvenements.get(index).affiche(ascenseur);
             index++;
-            if (index < listeEvenements.size()) {
+            if (index < this.listeEvenements.size()) {
                 System.out.print(',');
             }
         }

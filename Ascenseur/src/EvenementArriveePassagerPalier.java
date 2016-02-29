@@ -14,16 +14,20 @@ public class EvenementArriveePassagerPalier extends Evenement {
 
     public void traiter(Immeuble immeuble, Echeancier echeancier) {
         assert etageDeDepart != null;
-        Passager p = new Passager(date, etageDeDepart, immeuble);
+        Passager passagerQuiArrive = new Passager(date, etageDeDepart, immeuble);
 
-        if (immeuble.cabine.etage == this.etageDeDepart && immeuble.cabine.porteOuverte) {
-            immeuble.cabine.ajouterPassagerSiPossible(p);
-            Evenement fpc = echeancier.retournerEtEnleverFPC();
-            fpc.date += Constantes.tempsPourEntrerDansLaCabine;
-            echeancier.ajouter(fpc);
-            echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+        if (immeuble.cabine.etage.numero() == this.etageDeDepart.numero() && immeuble.cabine.porteOuverte) {
+            if (immeuble.cabine.ajouterPassagerSiPossible(passagerQuiArrive)) {
+                Evenement fpc = echeancier.retournerEtEnleverFPC();
+                fpc.date += Constantes.tempsPourEntrerDansLaCabine;
+                echeancier.ajouter(fpc);
+                echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+            } else {
+                this.etageDeDepart.ajouter(passagerQuiArrive);
+                echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+            }
         } else {
-            this.etageDeDepart.ajouter(p);
+            this.etageDeDepart.ajouter(passagerQuiArrive);
             echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
         }
     }

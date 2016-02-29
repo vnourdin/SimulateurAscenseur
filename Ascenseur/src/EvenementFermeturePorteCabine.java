@@ -12,17 +12,10 @@ public class EvenementFermeturePorteCabine extends Evenement {
         Cabine cabine = immeuble.cabine;
         assert cabine.porteOuverte;
         cabine.porteOuverte = false;
-        assert !cabine.porteOuverte;
-
-        if (cabine.etage == immeuble.etageLePlusBas())
-            cabine.changerStatus('^');
-        else if (cabine.etage == immeuble.etageLePlusHaut())
-            cabine.changerStatus('v');
 
         if (cabine.status() == 'v')
             echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, cabine.etage.plus_bas));
         else if (cabine.status() == '^')
             echeancier.ajouter(new EvenementPassageCabinePalier(this.date + Constantes.tempsPourBougerLaCabineDUnEtage, cabine.etage.plus_haut));
     }
-
 }

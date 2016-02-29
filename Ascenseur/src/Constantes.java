@@ -27,5 +27,4 @@ public class Constantes {
         String s = null;
         s.charAt(0); // To force the crash when assert is disabled.
     }
-
 }
