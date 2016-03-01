@@ -90,14 +90,14 @@ public class Cabine extends Constantes {
         boolean ajoute = false;
         int i;
 
-        for (i = 0; i < this.tableauPassager.length && !ajoute; i++) {
+        for (i = this.tableauPassager.length - 1; i >= 0 && !ajoute; i--) {
             if (this.tableauPassager[i] == null) {
                 this.tableauPassager[i] = passager;
                 ajoute = true;
             }
         }
         if (ajoute)
-            assert this.tableauPassager[i - 1] == passager;
+            assert this.tableauPassager[i + 1] == passager;
 
         return ajoute;
     }
