@@ -70,23 +70,19 @@ public class Etage extends Constantes {
 
     public boolean auMoinsUnPassagerInteresse(char status) {
         boolean auMoinsUnInteresse = false;
-        if (this.isModeParfait()) {
-            switch (status) {
-                case 'v':
-                    for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
-                        if (this.listePassagersEtage.get(i).etageDestination().numero() < this.numero())
-                            auMoinsUnInteresse = true;
-                    }
-                    break;
-                case '^':
-                    for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
-                        if (this.listePassagersEtage.get(i).etageDestination().numero() > this.numero())
-                            auMoinsUnInteresse = true;
-                    }
-                    break;
-            }
-        } else {
-            return this.auMoinsUnPassager();
+        switch (status) {
+            case 'v':
+                for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
+                    if (this.listePassagersEtage.get(i).etageDestination().numero() < this.numero())
+                        auMoinsUnInteresse = true;
+                }
+                break;
+            case '^':
+                for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
+                    if (this.listePassagersEtage.get(i).etageDestination().numero() > this.numero())
+                        auMoinsUnInteresse = true;
+                }
+                break;
         }
         return auMoinsUnInteresse;
     }

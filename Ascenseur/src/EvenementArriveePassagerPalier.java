@@ -23,19 +23,19 @@ public class EvenementArriveePassagerPalier extends Evenement {
                     Evenement fpc = echeancier.retournerEtEnleverFPC();
                     fpc.date += Constantes.tempsPourEntrerDansLaCabine;
                     echeancier.ajouter(fpc);
+                    this.date += this.etageDeDepart.arriveeSuivante();
+                    echeancier.ajouter(this);
                 } else
-                    this.etageDeDepart.ajouter(passagerQuiArrive);
-                this.date += this.etageDeDepart.arriveeSuivante();
-                echeancier.ajouter(this);
-            } else {
-                this.etageDeDepart.ajouter(passagerQuiArrive);
-                this.date += this.etageDeDepart.arriveeSuivante();
-                echeancier.ajouter(this);
-            }
-        } else {
-            this.etageDeDepart.ajouter(passagerQuiArrive);
-            this.date += this.etageDeDepart.arriveeSuivante();
-            echeancier.ajouter(this);
-        }
+                    ajouterALetageEtRelancerAPP(passagerQuiArrive, echeancier);
+            } else
+                ajouterALetageEtRelancerAPP(passagerQuiArrive, echeancier);
+        } else
+            ajouterALetageEtRelancerAPP(passagerQuiArrive, echeancier);
+    }
+
+    private void ajouterALetageEtRelancerAPP(Passager passagerQuiArrive, Echeancier echeancier) {
+        this.etageDeDepart.ajouter(passagerQuiArrive);
+        this.date += this.etageDeDepart.arriveeSuivante();
+        echeancier.ajouter(this);
     }
 }
