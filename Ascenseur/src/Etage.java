@@ -70,19 +70,23 @@ public class Etage extends Constantes {
 
     public boolean auMoinsUnPassagerInteresse(char status) {
         boolean auMoinsUnInteresse = false;
-        switch (status) {
-            case 'v':
-                for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
-                    if (this.listePassagersEtage.get(i).etageDestination().numero() < this.numero())
-                        auMoinsUnInteresse = true;
-                }
-                break;
-            case '^':
-                for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
-                    if (this.listePassagersEtage.get(i).etageDestination().numero() > this.numero())
-                        auMoinsUnInteresse = true;
-                }
-                break;
+        if (this.isModeParfait()) {
+            switch (status) {
+                case 'v':
+                    for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
+                        if (this.listePassagersEtage.get(i).etageDestination().numero() < this.numero())
+                            auMoinsUnInteresse = true;
+                    }
+                    break;
+                case '^':
+                    for (int i = this.listePassagersEtage.size() - 1; i >= 0 && !auMoinsUnInteresse; i--) {
+                        if (this.listePassagersEtage.get(i).etageDestination().numero() > this.numero())
+                            auMoinsUnInteresse = true;
+                    }
+                    break;
+            }
+        } else {
+            return this.auMoinsUnPassager();
         }
         return auMoinsUnInteresse;
     }
@@ -97,11 +101,19 @@ public class Etage extends Constantes {
         assert cabine.etage == this;
 
         ArrayList<Passager> passagersASupprimer = new ArrayList<>();
-        for (Passager passager : this.listePassagersEtage) {
-            if (cabine.status() == 'v' && passager.etageDestination().numero() < this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
-                passagersASupprimer.add(passager);
-            } else if (cabine.status() == '^' && passager.etageDestination().numero() > this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
-                passagersASupprimer.add(passager);
+
+        if (this.isModeParfait()) {
+            for (Passager passager : this.listePassagersEtage) {
+                if (cabine.status() == 'v' && passager.etageDestination().numero() < this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
+                    passagersASupprimer.add(passager);
+                } else if (cabine.status() == '^' && passager.etageDestination().numero() > this.numero() && cabine.ajouterPassagerSiPossible(passager)) {
+                    passagersASupprimer.add(passager);
+                }
+            }
+        } else {
+            for (Passager passager : this.listePassagersEtage) {
+                if (cabine.ajouterPassagerSiPossible(passager))
+                    passagersASupprimer.add(passager);
             }
         }
         this.supprimerPassagers(passagersASupprimer);

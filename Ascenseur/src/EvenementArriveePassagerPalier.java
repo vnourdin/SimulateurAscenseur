@@ -16,21 +16,26 @@ public class EvenementArriveePassagerPalier extends Evenement {
         assert etageDeDepart != null;
         Passager passagerQuiArrive = new Passager(date, etageDeDepart, immeuble);
 
-        if (immeuble.cabine.etage.numero() == this.etageDeDepart.numero()
-                && immeuble.cabine.porteOuverte
-                && ((immeuble.cabine.aUneDestination() && passagerQuiArrive.sens() == immeuble.cabine.status()) || !immeuble.cabine.aUneDestination())) {
-            if (immeuble.cabine.ajouterPassagerSiPossible(passagerQuiArrive)) {
-                Evenement fpc = echeancier.retournerEtEnleverFPC();
-                fpc.date += Constantes.tempsPourEntrerDansLaCabine;
-                echeancier.ajouter(fpc);
-                echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+        if (immeuble.cabine.etage.numero() == this.etageDeDepart.numero() && immeuble.cabine.porteOuverte) {
+            if ((this.isModeParfait() && (immeuble.cabine.aUneDestination() && passagerQuiArrive.sens() == immeuble.cabine.status()) || !immeuble.cabine.aUneDestination())
+                    || !this.isModeParfait()) {
+                if (immeuble.cabine.ajouterPassagerSiPossible(passagerQuiArrive)) {
+                    Evenement fpc = echeancier.retournerEtEnleverFPC();
+                    fpc.date += Constantes.tempsPourEntrerDansLaCabine;
+                    echeancier.ajouter(fpc);
+                } else
+                    this.etageDeDepart.ajouter(passagerQuiArrive);
+                this.date += this.etageDeDepart.arriveeSuivante();
+                echeancier.ajouter(this);
             } else {
                 this.etageDeDepart.ajouter(passagerQuiArrive);
-                echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+                this.date += this.etageDeDepart.arriveeSuivante();
+                echeancier.ajouter(this);
             }
         } else {
             this.etageDeDepart.ajouter(passagerQuiArrive);
-            echeancier.ajouter(new EvenementArriveePassagerPalier(this.date + this.etageDeDepart.arriveeSuivante(), this.etageDeDepart));
+            this.date += this.etageDeDepart.arriveeSuivante();
+            echeancier.ajouter(this);
         }
     }
 }
